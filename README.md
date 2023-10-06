@@ -8,7 +8,7 @@
 
 # nonebot-plugin-playercheck
 
-_✨ NoneBot 插件简单描述 ✨_
+_✨ NoneBot 一个查询群友音乐成分的插件 ✨_
 
 
 <a href="./LICENSE">
@@ -21,12 +21,9 @@ _✨ NoneBot 插件简单描述 ✨_
 
 </div>
 
-一个查询群友音乐成分的插件
-
-
 ## 📖 介绍
 
-将群友成分储存于json文件，并使用[nonebot-plugin-htmlrender](https://github.com/kexue-z/nonebot-plugin-htmlrender)的template渲染网页
+将群友成分储存于json文件，并使用[nonebot-plugin-htmlrender](https://github.com/kexue-z/nonebot-plugin-htmlrender)渲染网页
 
 
 ## 💿 安装
@@ -79,10 +76,10 @@ _✨ NoneBot 插件简单描述 ✨_
 ### 指令表
 | 指令 | 权限 | 需要@ | 范围 | 说明 |
 |:-----:|:----:|:----:|:----:|:----:|
-| cf.add | 主人 | 否 | 群聊 | `cf.add osu,malody` 会替换原来的游戏列表 |
-| cf.del| 群员 | 否 | 群聊 | 删除用户输入的所有游戏列表 |
-| cf.list| 群员 | 否 | 群聊 | 渲染图片 |
+| `cf.add` | 群员 | 否 | 群聊 | `cf.add osu,malody` 会替换原来的游戏列表 |
+| `cf.del` | 群员 | 否 | 群聊 | 删除用户输入的所有游戏列表 |
+| `cf.list` | 群员 | 否 | 群聊 | 渲染图片 |
 ### 效果图
 > 如果没有从群内获取到该玩家的信息，则会返回None
 
-![效果](assert\效果图.PNG)
+![效果](assert/效果图.PNG)

@@ -16,7 +16,7 @@ data_path=Path(".") / "data" / "playercheck"
 template_path=str(Path(__file__).parent / "templates")
 template_name = "main.html"
 
-get_list = on_command("list",priority=5, block=True)
+get_list = on_command("cf.list",priority=5, block=True)
 # 获取所有用户的游戏列表
 @get_list.handle()
 async def getlist (event: GroupMessageEvent, bot: Bot):
@@ -42,7 +42,7 @@ async def getlist (event: GroupMessageEvent, bot: Bot):
     content = await template_to_pic(template_path=template_path,template_name=template_name,templates=templates,pages=pages)
     await get_list.send(MessageSegment.image(content))
 
-delete_user = on_command("del",priority=5, block=True)
+delete_user = on_command("cf.del",priority=5, block=True)
 # 删除用户
 @delete_user.handle()
 async def deleteuser (event: GroupMessageEvent):
@@ -51,7 +51,7 @@ async def deleteuser (event: GroupMessageEvent):
         deleteplayer(jsondata=jsondata,qq=event.get_user_id(),filepath=str(data_path)+"/"+event.get_session_id().split("_")[1]+".json")
     await delete_user.finish("删除完毕")
 
-add_user = on_command("add",priority=5, block=True)
+add_user = on_command("cf.add",priority=5, block=True)
 # 添加用户
 @add_user.handle()
 async def adduser (event: GroupMessageEvent, args: Message = CommandArg()):
