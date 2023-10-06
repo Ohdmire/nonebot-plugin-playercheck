@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "nonebot-plugin-playercheck"
+version = "1.0.0"
+description = "基于 Nonebot2 的群友音游成分查询"
+authors = ["Ohdmire","Proxyerium"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/Ohdmire/nonebot-plugin-playercheck"
+repository = "https://github.com/Ohdmire/nonebot-plugin-playercheck"
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4"
+nonebot2 = ">=2.0.0-beta.1"
+nonebot-plugin-htmlrender  = ">=0.2.1"
+
+
+[tool.poetry.dev-dependencies]
+nb-cli = "^0.6.0"
+black = "^22.1.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
