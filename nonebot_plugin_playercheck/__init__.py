@@ -1,4 +1,4 @@
-from nonebot import on_command,requirepi
+from nonebot import on_command,require
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,Message,MessageSegment
 from nonebot.params import CommandArg
 from nonebot.plugin import PluginMetadata
