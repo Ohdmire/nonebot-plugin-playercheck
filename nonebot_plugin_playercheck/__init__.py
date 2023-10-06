@@ -1,15 +1,27 @@
 from nonebot import on_command,require
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,Message,MessageSegment
 from nonebot.params import CommandArg
+from nonebot.plugin import PluginMetadata
 from .datasource import getallgame,deleteplayer,addplayer
 
 import json
 from pathlib import Path
 
-
 require("nonebot_plugin_htmlrender")
-
 from nonebot_plugin_htmlrender import template_to_pic
+
+__plugin_meta__ = PluginMetadata(
+    name="nonebot-plugin-playercheck",
+    description="一个查询群友音游成分的插件",
+    usage="cf.add [游戏名1,游戏名2...] 添加游戏\n"
+          "cf.del 删除游戏\n"   
+          "cf.list 查询游戏列表\n",
+
+    type="application",
+    homepage="https://github.com/ohdmire/nonebot-plugin-playercheck",
+    supported_adapters={"~onebot.v11"},
+)
+
 
 
 data_path=Path(".") / "data" / "playercheck"
