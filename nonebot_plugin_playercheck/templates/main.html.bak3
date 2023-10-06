@@ -17,7 +17,11 @@
 
             .card {
                 flex-direction: row;
+
                 background-color: #ffbbbb;
+                
+                /* height: fit-content;
+                width: fit-content; */
 
                 margin-top: 50px;
                 margin-bottom: 50px;
@@ -36,72 +40,64 @@
             }
 
             .gameinfo {
-                background-image: url(https://i.ppy.sh/c41c3b9ed0beeba20898a5ee7f97b6c1c2d37652/68747470733a2f2f7075752e73682f69625745532f336536646366373339372e706e67);
+                background: url(https://i.ppy.sh/c41c3b9ed0beeba20898a5ee7f97b6c1c2d37652/68747470733a2f2f7075752e73682f69625745532f336536646366373339372e706e67);
+                background-size: cover;
+                background-repeat: no-repeat;
+
                 height: 10em;
+                
                 margin: 0;
             }
-            .gamecover {
-                width: 100%;
-                height: 100%;
-                object-fit:cover;
-                filter: blur(5px);
-                
-            }
-
 
             .gamename {
-                position: absolute;
                 display: inline-block;
-                background-color: rgba(26, 131, 218, 0.7);
-                
+                background-color: rgba(255, 187, 187, 1);
+
                 color: #eeeeee;
                 font-size: 24pt;
                 font-weight: bold;
                 font-style: italic;
 
                 margin-top: 3vh;
-                margin-left: 2vw;
+                margin-left: 1vw;
 
                 border: 0;
                 border-radius: 1rem;
 
                 padding: 0 1rem;
-
-                z-index: 1000;
-
             }
 
             .sepline {
                 height: 0.1px;
                 background-color: #ffe4c4;
+
                 border-radius: 0;
+                
                 padding: 3.2px 0;
             }
 
             .playerinfo {
                 display: inline-block;
-                
+
                 margin: 15px 10px;
             }
             .playerinfo img {
-                vertical-align: middle;
+                vertical-align: bottom;
                 border-radius: 50%;
                 overflow: hidden;
-
-                margin-bottom: 10px;
-
-                width: 6vw;
+                width: 5vw;
                 height: auto;
             }
             
             .playername {
                 display: inline-block;
-                background-color: #e3e3e3;
-                font-size: 18pt;
-                margin: 10px auto;
-                padding: 4px;
-                border-radius: 4pt;
 
+                margin: 10px auto;
+
+                border: 0;
+                border-bottom: 3px;
+                border-style: solid;
+                border-color: #d51e1e;
             }
         </style>
 
@@ -116,19 +112,16 @@
                 {% for i in allgamelists %}
                 <div class="card">
                     <div class="gameinfo">
-                        <div class="gamename">{{ i }}</div>
-                        {% if gamecoverdict[i] %}
-                            <img class="gamecover" src="{{ gamecoverdict[i] }}" alt="gamecover">
-                        {% endif %}
+                        <p class="gamename">{{ i }}</p>
                     </div>
                     <div class="sepline"></div>
                     {% for key,value in playerdict.items() %}
                         {% if i in value %}
-                            <div class="playerinfo">
-                                <img src="http://q1.qlogo.cn/g?b=qq&nk={{ key }}&s=640" alt="qqavatar">
-                                <p class="playername">{{ usergroupdict[key] }}</p>
-                            </div>
-                        {% endif %}
+                        <div class="playerinfo">
+                            <img src="http://q1.qlogo.cn/g?b=qq&nk={{ key }}&s=640" alt="qqavatar">
+                            <p class="playername">{{ usergroupdict[key] }}</p>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
                     {% endfor %}

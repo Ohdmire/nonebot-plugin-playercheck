@@ -2,8 +2,8 @@ from nonebot import on_command,require
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,Message,MessageSegment
 from nonebot.params import CommandArg
 from .datasource import getallgame,deleteplayer,addplayer
+
 import json
-import os
 from pathlib import Path
 
 
@@ -12,7 +12,7 @@ require("nonebot_plugin_htmlrender")
 from nonebot_plugin_htmlrender import template_to_pic
 
 
-data_path=Path(".") / "data"
+data_path=Path(".") / "data" / "playercheck"
 template_path=str(Path(__file__).parent / "templates")
 template_name = "main.html"
 
@@ -20,8 +20,7 @@ get_list = on_command("list",priority=5, block=True)
 # 获取所有用户的游戏列表
 @get_list.handle()
 async def getlist (event: GroupMessageEvent, bot: Bot):
-    if os.path.exists("data")==False:
-        os.mkdir("data")
+    data_path.mkdir(parents=True, exist_ok=True)
     if Path(str(data_path)+"/"+event.get_session_id().split("_")[1]+".json").exists()==False:
         with open (str(data_path)+"/"+event.get_session_id().split("_")[1]+".json","w+",encoding="utf-8") as f:
             json.dump([],f,ensure_ascii=False)
@@ -43,7 +42,7 @@ async def getlist (event: GroupMessageEvent, bot: Bot):
     content = await template_to_pic(template_path=template_path,template_name=template_name,templates=templates,pages=pages)
     await get_list.send(MessageSegment.image(content))
 
-delete_user = on_command("delete",priority=5, block=True)
+delete_user = on_command("del",priority=5, block=True)
 # 删除用户
 @delete_user.handle()
 async def deleteuser (event: GroupMessageEvent):
@@ -56,8 +55,7 @@ add_user = on_command("add",priority=5, block=True)
 # 添加用户
 @add_user.handle()
 async def adduser (event: GroupMessageEvent, args: Message = CommandArg()):
-    if os.path.exists("data")==False:
-        os.mkdir("data")
+    data_path.mkdir(parents=True, exist_ok=True)
     if Path(str(data_path)+"/"+event.get_session_id().split("_")[1]+".json").exists()==False:
         with open (str(data_path)+"/"+event.get_session_id().split("_")[1]+".json","w+",encoding="utf-8") as f:
             json.dump([],f,ensure_ascii=False)

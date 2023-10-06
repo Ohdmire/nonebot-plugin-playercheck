@@ -1,27 +1,30 @@
 import json
-# from flask import  Flask,render_template  #导入render_template模块
-# app=Flask(__name__)
+import os
 import operator
 
-# allgamelists=[]
-# playerdict={} #玩家字典，key是qq，value是游戏列表
 
 # 获取所有用户的游戏列表
 def getallgame(jsondata,assertpath):
     def getgamename(gamename):
-        with open(assertpath,"r",encoding="utf-8") as f:
-            jsondata=json.load(f)
-        for i in jsondata:
-            if gamename in i["alias"]:
-                return i["name"]
-        return gamename
+        if os.path.exists(assertpath)==True:
+            with open(assertpath,"r",encoding="utf-8") as f:
+                jsondata=json.load(f)
+            for i in jsondata:
+                if gamename in i["alias"]:
+                    return i["name"]
+            return gamename
+        else:
+            return gamename
     
     def getpicurl(gamename):
-        with open(assertpath,"r",encoding="utf-8") as f:
-            jsondata=json.load(f)
-        for i in jsondata:
-            if gamename in i["name"]:
-                return i["url"]
+        if os.path.exists(assertpath)==True:
+            with open(assertpath,"r",encoding="utf-8") as f:
+                jsondata=json.load(f)
+            for i in jsondata:
+                if gamename in i["name"]:
+                    return i["url"]
+                pass
+        else:
             pass
 
     allgamelists=[]
