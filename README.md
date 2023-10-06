@@ -12,7 +12,7 @@ _✨ NoneBot 一个查询群友音游成分的插件 ✨_
 
 
 <a href="./LICENSE">
-    <img src="https://img.shields.io/github/license/owner/nonebot-plugin-playercheck.svg" alt="license">
+    <img src="https://img.shields.io/github/license/Ohdmire/nonebot-plugin-playercheck.svg" alt="license">
 </a>
 <a href="https://pypi.python.org/pypi/nonebot-plugin-playercheck">
     <img src="https://img.shields.io/pypi/v/nonebot-plugin-playercheck.svg" alt="pypi">
