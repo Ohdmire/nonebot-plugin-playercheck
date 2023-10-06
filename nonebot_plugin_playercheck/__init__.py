@@ -4,12 +4,6 @@ from nonebot.params import CommandArg
 from nonebot.plugin import PluginMetadata
 from .datasource import getallgame,deleteplayer,addplayer
 
-import json
-from pathlib import Path
-
-require("nonebot_plugin_htmlrender")
-from nonebot_plugin_htmlrender import template_to_pic
-
 __plugin_meta__ = PluginMetadata(
     name="nonebot-plugin-playercheck",
     description="一个查询群友音游成分的插件",
@@ -23,6 +17,11 @@ __plugin_meta__ = PluginMetadata(
 )
 
 
+import json
+from pathlib import Path
+
+require("nonebot_plugin_htmlrender")
+from nonebot_plugin_htmlrender import template_to_pic
 
 data_path=Path(".") / "data" / "playercheck"
 template_path=str(Path(__file__).parent / "templates")
