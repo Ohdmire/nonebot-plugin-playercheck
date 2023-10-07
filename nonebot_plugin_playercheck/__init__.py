@@ -37,7 +37,7 @@ async def getlist (event: GroupMessageEvent, bot: Bot):
             json.dump([],f,ensure_ascii=False)
     with open (str(data_path)+"/"+event.get_session_id().split("_")[1]+".json","r",encoding="utf-8") as f:
         jsondata=json.load(f)
-    allgamelists,playerdict,gamecoverdict=getallgame(jsondata,assertpath=str(data_path)+"/"+"assert.json")
+    allgamelists,playerdict,gamecoverdict=getallgame(jsondata,assetspath=str(data_path)+"/"+"assets.json")
     usergroupdict={}
     for i in playerdict.keys():
         try:

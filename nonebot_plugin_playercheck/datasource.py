@@ -4,10 +4,10 @@ import operator
 
 
 # 获取所有用户的游戏列表
-def getallgame(jsondata,assertpath):
+def getallgame(jsondata,assetspath):
     def getgamename(gamename):
-        if os.path.exists(assertpath)==True:
-            with open(assertpath,"r",encoding="utf-8") as f:
+        if os.path.exists(assetspath)==True:
+            with open(assetspath,"r",encoding="utf-8") as f:
                 jsondata=json.load(f)
             for i in jsondata:
                 if gamename in i["alias"]:
@@ -17,8 +17,8 @@ def getallgame(jsondata,assertpath):
             return gamename
     
     def getpicurl(gamename):
-        if os.path.exists(assertpath)==True:
-            with open(assertpath,"r",encoding="utf-8") as f:
+        if os.path.exists(assetspath)==True:
+            with open(assetspath,"r",encoding="utf-8") as f:
                 jsondata=json.load(f)
             for i in jsondata:
                 if gamename in i["name"]:
