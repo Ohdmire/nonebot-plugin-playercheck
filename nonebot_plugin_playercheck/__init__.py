@@ -2,7 +2,7 @@ from nonebot import on_command,require
 from nonebot.adapters.onebot.v11 import GroupMessageEvent,Bot,Message,MessageSegment
 from nonebot.params import CommandArg
 from nonebot.plugin import PluginMetadata
-from .datasource import get_all_info,deleteplayer,addplayer
+from .datasource import get_all_info,deleteplayer,addplayer,update_alias2name
 
 __plugin_meta__ = PluginMetadata(
     name="nonebot-plugin-playercheck",
@@ -83,7 +83,17 @@ async def adduser (event: GroupMessageEvent, args: Message = CommandArg()):
     with open (str(data_path)+"/"+event.get_session_id().split("_")[1]+".json","r",encoding="utf-8") as f:
         jsondata=json.load(f)
     gamename2aliasdict=get_all_info(jsondata,assetspath=str(data_path)+"/"+"assets.json")[1]
-    addplayer(jsondata=jsondata,qq=event.get_user_id(),gamelists=args.extract_plain_text().split(","),gamename2aliasdict=gamename2aliasdict,filepath=str(data_path)+"/"+event.get_session_id().split("_")[1]+".json")
+    i=addplayer(jsondata=jsondata,qq=event.get_user_id(),gamelists=args.extract_plain_text().split(","),gamename2aliasdict=gamename2aliasdict,filepath=str(data_path)+"/"+event.get_session_id().split("_")[1]+".json")
+    await add_user.send(str(i))
     await add_user.finish("添加完成")
+
+update_alias = on_command("cf.update",priority=5, block=True)
+@update_alias.handle()
+async def updatalias (event: GroupMessageEvent):
+    with open (str(data_path)+"/"+event.get_session_id().split("_")[1]+".json","r",encoding="utf-8") as f:
+        jsondata=json.load(f)
+    gamename2aliasdict=get_all_info(jsondata,assetspath=str(data_path)+"/"+"assets.json")[1]
+    update_alias2name(jsondata=jsondata,gamename2aliasdict=gamename2aliasdict,filepath=str(data_path)+"/"+event.get_session_id().split("_")[1]+".json")
+    await update_alias.finish("更新alias完成")
 
 #TO DO私聊部分

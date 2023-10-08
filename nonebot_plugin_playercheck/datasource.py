@@ -58,10 +58,6 @@ def deleteplayer(jsondata,qq,filepath):
 # 添加用户和游戏列表
 def addplayer(jsondata,qq,gamelists,filepath,gamename2aliasdict):
     #替换别名,没有就是输入的alias当作游戏名
-
-
-
-
     newgamelists=[]
     for i in gamelists: #一个i是一个alias列表的一个值
         is_convert=False #草这是什么解决方案啊，后面这个获取别名的我真的想不到其他方法能够替换别名成游戏名了
@@ -77,16 +73,45 @@ def addplayer(jsondata,qq,gamelists,filepath,gamename2aliasdict):
             newgamelists.append(i)
             
     newgamelists=list(set(newgamelists)) #去重
-
-    #修改jsondata然后写入文件
+    #复制jsondata然后再新加入
     newjsondata=[]
     if jsondata == []:
         newjsondata.append({qq:newgamelists})
     else:
-        for i in jsondata: 
-            if qq in i.keys():
-                i.update({qq:newgamelists})
-            newjsondata.append(i)
+        for i in jsondata:
+            for k in i.keys(): #k是字典,key是qq号,value是游戏列表
+                if k != qq:
+                    newjsondata.append(i)
+        newjsondata.append({qq:newgamelists})
+
 
     with open(filepath,"w",encoding="utf-8") as f:
         json.dump(newjsondata, f,ensure_ascii=False)
+
+# 替换别名然后保存到json
+def update_alias2name(jsondata,gamename2aliasdict,filepath):
+    newjsondata=[]
+    for i in jsondata: #一个i是一个字典,一个key是qq号,value是游戏列表
+        templists=[]
+        for key,value in i.items():
+            for j in value: #j单个游戏名
+                if gamename2aliasdict=={}:
+                    templists.append(j)
+                    continue
+                is_convert=False
+                for key2,value2 in gamename2aliasdict.items(): #key2是游戏名,value2是别名列表
+                    if j in value2:
+                        templists.append(key2)
+                        is_convert=True
+                        break
+                if is_convert==False:
+                    templists.append(j)
+        templists=list(set(templists)) #去重
+        newjsondata.append({key:templists})
+            
+            
+
+    with open(filepath,"w",encoding="utf-8") as f:
+        json.dump(newjsondata, f,ensure_ascii=False)
+
+                
