@@ -12,5 +12,15 @@
     "alias": ["phi","phigros"],
     "name": "Phigros",
     "url": "https://static.wikia.nocookie.net/phigros/images/9/9c/1627870329178364.png/revision/latest?cb=20230829234211&path-prefix=zh"
+},
+{
+    "alias": ["maimai","dx"],
+    "name": "maimai DX",
+    "url": "https://lng-tgk-aime-gw.am-all.net/cl/img/title_logo/maimaidxex.jpg"
+},
+{
+    "alias": ["arc","arcaea"],
+    "name": "Arcaea",
+    "url": "https://arcaea.lowiro.com/img/background_homepage-hero@2x.6664435e.jpg"
 }
 ]
