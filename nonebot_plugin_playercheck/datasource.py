@@ -27,6 +27,7 @@ def get_all_info(jsondata,assetspath):
     
     #替换别名,没有就是输入的alias当作游戏名
     allgamelists=[]
+    is_convert=False #草这是什么解决方案啊，后面这个获取别名的我真的想不到其他方法能够替换别名成游戏名了
     for i in gamenametemplist: #一个i是一个alias列表的一个值
         if gamename2aliasdict=={}:
             allgamelists.append(i)
@@ -34,8 +35,10 @@ def get_all_info(jsondata,assetspath):
         for key,value in gamename2aliasdict.items(): #key是一个游戏名，一个value是一个别名列表(alias)
             if i in value: #如果i在values内,就把key加入allgamelists
                 allgamelists.append(key)
-            else:
-                allgamelists.append(i) #如果i不在values内，就把i加入allgamelists
+                is_convert=True
+                break
+        if is_convert==False:
+            allgamelists.append(i)
     allgamelists=list(set(allgamelists)) #去重
     allgamelists.sort() #排序
 
@@ -55,19 +58,24 @@ def deleteplayer(jsondata,qq,filepath):
 # 添加用户和游戏列表
 def addplayer(jsondata,qq,gamelists,filepath,gamename2aliasdict):
     #替换别名,没有就是输入的alias当作游戏名
+
+
+
+
     newgamelists=[]
     for i in gamelists: #一个i是一个alias列表的一个值
+        is_convert=False #草这是什么解决方案啊，后面这个获取别名的我真的想不到其他方法能够替换别名成游戏名了
         if gamename2aliasdict=={}:
             newgamelists.append(i)
             continue
-        for key,value in gamename2aliasdict.items(): #key是一个游戏名，一个value是一个别名列表(alias)
+        for key,value in gamename2aliasdict.items(): #value是一个别名列表(alias)
             if i in value:
                 newgamelists.append(key)
+                is_convert=True
                 break
-            else:
-                newgamelists.append(i)
-                break
-
+        if is_convert==False:
+            newgamelists.append(i)
+            
     newgamelists=list(set(newgamelists)) #去重
 
     #修改jsondata然后写入文件

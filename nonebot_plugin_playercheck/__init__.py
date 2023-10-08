@@ -84,7 +84,6 @@ async def adduser (event: GroupMessageEvent, args: Message = CommandArg()):
         jsondata=json.load(f)
     gamename2aliasdict=get_all_info(jsondata,assetspath=str(data_path)+"/"+"assets.json")[1]
     addplayer(jsondata=jsondata,qq=event.get_user_id(),gamelists=args.extract_plain_text().split(","),gamename2aliasdict=gamename2aliasdict,filepath=str(data_path)+"/"+event.get_session_id().split("_")[1]+".json")
-
     await add_user.finish("添加完成")
 
 #TO DO私聊部分
