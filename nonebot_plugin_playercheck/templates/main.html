@@ -113,25 +113,30 @@
             群音游玩家成分查询
         </h1>
             <div class="list">
+                <!-- i是一个游戏 -->
                 {% for i in allgamelists %}
                 <div class="card">
                     <div class="gameinfo">
                         <div class="gamename">{{ i }}</div>
-                        {% if gamecoverdict[i] %}
-                            <img class="gamecover" src="{{ gamecoverdict[i] }}" alt="gamecover">
+                        {% if gamename2urldict[i] %}
+                            <img class="gamecover" src="{{ gamename2urldict[i] }}" alt="gamecover">
                         {% endif %}
                     </div>
                     <div class="sepline"></div>
-                    {% for key,value in playerdict.items() %}
-                        {% if i in value %}
-                            <div class="playerinfo">
-                                <img src="http://q1.qlogo.cn/g?b=qq&nk={{ key }}&s=640" alt="qqavatar">
-                                <p class="playername">{{ usergroupdict[key] }}</p>
-                            </div>
-                        {% endif %}
+                    {% for k in jsondata %}
+                        <!-- key是qq号码,value是游戏列表 -->
+                        {% for key,value in k.items() %}
+                            <!-- 如果i在游戏列表里面，则加入qq -->
+                            {% if i in value %}
+                                <div class="playerinfo">
+                                    <img src="http://q1.qlogo.cn/g?b=qq&nk={{ key }}&s=640" alt="qqavatar">
+                                    <p class="playername">{{ user2cardname[key] }}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     {% endfor %}
                 </div>
-                    {% endfor %}
+                {% endfor %}
             </div>
     </body>
 </html>
