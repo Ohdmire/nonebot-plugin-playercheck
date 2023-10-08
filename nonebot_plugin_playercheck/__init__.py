@@ -19,7 +19,7 @@ __plugin_meta__ = PluginMetadata(
 
 import json
 from pathlib import Path
-import operator
+
 
 require("nonebot_plugin_htmlrender")
 from nonebot_plugin_htmlrender import template_to_pic
@@ -52,8 +52,6 @@ async def getlist (event: GroupMessageEvent, bot: Bot):
             usercardname=i["nickname"]
         user2cardname.update({str(userqq):str(usercardname)})
 
-    #按照群名片排序
-    user2cardname = dict(sorted(user2cardname.items(), key=operator.itemgetter(1)))
 
     #playerdict就是jsondata
     templates={"allgamelists":allgamelists, "jsondata":jsondata,"user2cardname" :user2cardname, "gamename2urldict":gamename2urldict}
@@ -83,8 +81,7 @@ async def adduser (event: GroupMessageEvent, args: Message = CommandArg()):
     with open (str(data_path)+"/"+event.get_session_id().split("_")[1]+".json","r",encoding="utf-8") as f:
         jsondata=json.load(f)
     gamename2aliasdict=get_all_info(jsondata,assetspath=str(data_path)+"/"+"assets.json")[1]
-    i=addplayer(jsondata=jsondata,qq=event.get_user_id(),gamelists=args.extract_plain_text().split(","),gamename2aliasdict=gamename2aliasdict,filepath=str(data_path)+"/"+event.get_session_id().split("_")[1]+".json")
-    await add_user.send(str(i))
+    addplayer(jsondata=jsondata,qq=event.get_user_id(),gamelists=args.extract_plain_text().split(","),gamename2aliasdict=gamename2aliasdict,filepath=str(data_path)+"/"+event.get_session_id().split("_")[1]+".json")
     await add_user.finish("添加完成")
 
 update_alias = on_command("cf.update",priority=5, block=True)
@@ -95,5 +92,4 @@ async def updatalias (event: GroupMessageEvent):
     gamename2aliasdict=get_all_info(jsondata,assetspath=str(data_path)+"/"+"assets.json")[1]
     update_alias2name(jsondata=jsondata,gamename2aliasdict=gamename2aliasdict,filepath=str(data_path)+"/"+event.get_session_id().split("_")[1]+".json")
     await update_alias.finish("更新alias完成")
-
 #TO DO私聊部分

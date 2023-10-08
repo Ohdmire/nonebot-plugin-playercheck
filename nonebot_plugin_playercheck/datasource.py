@@ -40,7 +40,21 @@ def get_all_info(jsondata,assetspath):
         if is_convert==False:
             allgamelists.append(i)
     allgamelists=list(set(allgamelists)) #去重
-    allgamelists.sort() #排序
+
+    # 想增加个按游玩人数排序
+    # 先生成一个游戏名和游玩人数的字典
+    gamename2playernumdict={} 
+    for i in allgamelists:
+        if i not in gamename2playernumdict.keys():
+            gamename2playernumdict.update({i:0}) #key是游戏名,value是游玩人数
+    for i in jsondata: #一个i是一个字典{"114514":["osu","malody"]}
+        for key,value in i.items(): #key是qq号,value是游戏列表
+            for j in value: #j单个游戏名
+                if j in gamename2playernumdict.keys():
+                    gamename2playernumdict[j]+=1
+
+    # 按照游玩人数排序
+    allgamelists.sort(key=lambda x:gamename2playernumdict[x],reverse=True) #排序
 
     return allgamelists,gamename2aliasdict,gamename2urldict
  
@@ -71,17 +85,20 @@ def addplayer(jsondata,qq,gamelists,filepath,gamename2aliasdict):
                 break
         if is_convert==False:
             newgamelists.append(i)
-            
+
     newgamelists=list(set(newgamelists)) #去重
     #复制jsondata然后再新加入
     newjsondata=[]
     if jsondata == []:
         newjsondata.append({qq:newgamelists})
     else:
-        for i in jsondata:
-            for k in i.keys(): #k是字典,key是qq号,value是游戏列表
-                if k != qq:
-                    newjsondata.append(i)
+        for i in jsondata: #一个i是一个字典
+            for j,k in i.items(): #j是qq号,k是游戏列表
+                if j != qq:
+                    newjsondata.append(i)  
+
+        newgamelists.extend(k) #k是原来的游戏列表
+        newgamelists=list(set(newgamelists)) #去重
         newjsondata.append({qq:newgamelists})
 
 
@@ -114,4 +131,3 @@ def update_alias2name(jsondata,gamename2aliasdict,filepath):
     with open(filepath,"w",encoding="utf-8") as f:
         json.dump(newjsondata, f,ensure_ascii=False)
 
-                
