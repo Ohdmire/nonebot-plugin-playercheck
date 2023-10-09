@@ -14,7 +14,7 @@
     "url": "https://static.wikia.nocookie.net/phigros/images/9/9c/1627870329178364.png/revision/latest?cb=20230829234211&path-prefix=zh"
 },
 {
-    "alias": ["maimai","dx"],
+    "alias": ["maimai","dx","maimaidx"],
     "name": "maimai DX",
     "url": "https://lng-tgk-aime-gw.am-all.net/cl/img/title_logo/maimaidxex.jpg"
 },
@@ -24,7 +24,7 @@
     "url": "https://arcaea.lowiro.com/img/background_homepage-hero@2x.6664435e.jpg"
 },
 {
-	"alias": ["musedash"],
+	"alias": ["musedash","muse dash"],
 	"name": "Muse Dash",
 	"url": "https://cdn2.steamgriddb.com/file/sgdb-cdn/hero_thumb/ab9b6a5f5330077cd65d92aa33697153.png"
 },
@@ -49,7 +49,7 @@
 	"url": "https://m.mugzone.net/static/img/home/banner.png"
 },
 {
-	"alias": ["cytus2","cytusII"],
+	"alias": ["cytus2","cytusII","cy2"],
 	"name": "CYTUS II",
 	"url": "https://patchwiki.biligame.com/images/cytus2/7/79/ag43ouszcwqvuxqoxyn66qcf2vuxrcz.png"
 }
