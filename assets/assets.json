@@ -1,7 +1,7 @@
 [{
     "alias": ["osu","osu!"],
     "name": "OSU!",
-    "url": "https://osu.ppy.sh/assets/images/logo@2x.61bb4a3e.png"
+    "url": "https://i.ppy.sh/a9c028ef873c196030b9e4f09ed3d77aeaa7f0dd/68747470733a2f2f6173736574732e7070792e73682f6d656469612f67656e657269632d6865616465722e706e67"
 },
 {
     "alias": ["pjsk"],
@@ -31,7 +31,7 @@
 {
 	"alias": ["bms"],
 	"name": "BMS",
-	"url": "https://hakula-1257872502.file.myqcloud.com/images/article-covers/lr2.webp"
+	"url": "https://manbow.nothing.sh/event/upload/1400367_20221019012529_title.jpg"
 },
 {
 	"alias": ["quaver"],
@@ -42,5 +42,15 @@
 	"alias": ["djmax"],
 	"name": "DJMAX RESPECT V",
 	"url": "https://cdn2.steamgriddb.com/file/sgdb-cdn/hero_thumb/003dc1fa10fab92dcab78ab2c2620bfb.jpg"
+},
+{
+	"alias": ["malody"],
+	"name": "Malody",
+	"url": "https://m.mugzone.net/static/img/home/banner.png"
+},
+{
+	"alias": ["cytus2","cytusII"],
+	"name": "CYTUS II",
+	"url": "https://patchwiki.biligame.com/images/cytus2/7/79/ag43ouszcwqvuxqoxyn66qcf2vuxrcz.png"
 }
 ]
