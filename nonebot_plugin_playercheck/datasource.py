@@ -63,7 +63,7 @@ def get_all_info(jsondata,assetspath):
 def deleteplayer(jsondata,qq,filepath):
     newjsondata=[]
     for i in jsondata:
-        for k in i.keys(): #k是字典,key是qq号,value是游戏列表
+        for k in i.keys(): #k是qq号
             if k != qq:
                 newjsondata.append(i)
     with open(filepath,"w",encoding="utf-8") as f:
@@ -72,7 +72,7 @@ def deleteplayer(jsondata,qq,filepath):
 # 添加用户和游戏列表
 def addplayer(jsondata,qq,gamelists,filepath,gamename2aliasdict):
     #替换别名,没有就是输入的alias当作游戏名
-    newgamelists=[]
+    newgamelists=[] #这是一个新的列表,用来存放替换后的游戏名
     for i in gamelists: #一个i是一个alias列表的一个值
         is_convert=False #草这是什么解决方案啊，后面这个获取别名的我真的想不到其他方法能够替换别名成游戏名了
         if gamename2aliasdict=={}:
@@ -86,36 +86,50 @@ def addplayer(jsondata,qq,gamelists,filepath,gamename2aliasdict):
         if is_convert==False:
             newgamelists.append(i)
 
+    #这个循环结束后，newgamelists就是替换后的游戏名列表
+    #newgamelists是新游戏列表，还需要合并原来的游戏列表
+
     newgamelists=list(set(newgamelists)) #去重
     #复制jsondata然后再新加入
-    newjsondata=[]
-    if jsondata == []:
+    newjsondata=[] #用来存放新的jsondata
+    #特殊情况第一次添加
+    if len(jsondata) == 0:
         newjsondata.append({qq:newgamelists})
     else:
+        qqlists=[] #用来存放jsondata里面的qq号
+        qqlists.extend([list(i.keys())[0] for i in jsondata]) #这里是把jsondata里面的qq号提取出来
+        #字典i只有一个所以只循环了一遍，所以这一段代码是对于第一次添加的和修改原来的代码，这里不适用于如果加入了新的qq号
         for i in jsondata: #一个i是一个字典
-            for j,k in i.items(): #j是qq号,k是游戏列表
-                if j != qq:
-                    newjsondata.append(i)  
+            for j,k in i.items(): #j是qq号,k是游戏列表。这一次循环过后，newjsondata里面储存的是一位用户的数据，格式是[{"qq号":["游戏1","游戏2"]}]
+                if j != qq: #如果不是要添加的qq号,就直接加入，这样原来的数据就什么都不做
+                    newjsondata.append(i) 
+                    if qq not in qqlists: #新用户就应该直接添加
+                        newjsondata.append({qq:newgamelists})
 
-        newgamelists.extend(k) #k是原来的游戏列表
-        newgamelists=list(set(newgamelists)) #去重
-        newjsondata.append({qq:newgamelists})
-
-
+                else: #如果是要添加的qq号,就把游戏列表合并,再删除，再添加
+                    newgamelists.extend(k) #k是原来的游戏列表
+                    newgamelists=list(set(newgamelists)) #去重
+                    newjsondata.append({qq:newgamelists})
+ 
     with open(filepath,"w",encoding="utf-8") as f:
         json.dump(newjsondata, f,ensure_ascii=False)
+    
+    result='的成分列表为：\n{}'.format(newgamelists)
+    return result
+
 
 # 替换别名然后保存到json
 def update_alias2name(jsondata,gamename2aliasdict,filepath):
     newjsondata=[]
-    for i in jsondata: #一个i是一个字典,一个key是qq号,value是游戏列表
-        templists=[]
-        for key,value in i.items():
+    for i in jsondata: #一个i是一个字典,例如{"114514":["osu","malody"]}
+        templists=[] #用来存放替换后的游戏名
+        for key,value in i.items(): #key是qq号,value是游戏列表
+            # 循环到单个qq的游戏列表全部替换完成
             for j in value: #j单个游戏名
+                is_convert=False
                 if gamename2aliasdict=={}:
                     templists.append(j)
                     continue
-                is_convert=False
                 for key2,value2 in gamename2aliasdict.items(): #key2是游戏名,value2是别名列表
                     if j in value2:
                         templists.append(key2)
@@ -123,8 +137,10 @@ def update_alias2name(jsondata,gamename2aliasdict,filepath):
                         break
                 if is_convert==False:
                     templists.append(j)
-        templists=list(set(templists)) #去重
-        newjsondata.append({key:templists})
+            #这里是单个qq号的游戏列表替换完成了，已经加入templists了
+            templists=list(set(templists)) #去重
+            newjsondata.append({key:templists})
+
             
             
 

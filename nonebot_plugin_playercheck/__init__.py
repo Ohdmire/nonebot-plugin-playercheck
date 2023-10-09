@@ -77,13 +77,13 @@ async def adduser (event: GroupMessageEvent, args: Message = CommandArg()):
     if Path(str(data_path)+"/"+event.get_session_id().split("_")[1]+".json").exists()==False:
         with open (str(data_path)+"/"+event.get_session_id().split("_")[1]+".json","w+",encoding="utf-8") as f:
             json.dump([],f,ensure_ascii=False)
-    #这里和删除用户的部分一样
     with open (str(data_path)+"/"+event.get_session_id().split("_")[1]+".json","r",encoding="utf-8") as f:
         jsondata=json.load(f)
     gamename2aliasdict=get_all_info(jsondata,assetspath=str(data_path)+"/"+"assets.json")[1]
-    addplayer(jsondata=jsondata,qq=event.get_user_id(),gamelists=args.extract_plain_text().split(","),gamename2aliasdict=gamename2aliasdict,filepath=str(data_path)+"/"+event.get_session_id().split("_")[1]+".json")
-    await add_user.finish("添加完成")
+    result=addplayer(jsondata=jsondata,qq=event.get_user_id(),gamelists=args.extract_plain_text().split(","),gamename2aliasdict=gamename2aliasdict,filepath=str(data_path)+"/"+event.get_session_id().split("_")[1]+".json")
+    await add_user.finish(result,at_sender=True)
 
+# 更新alias
 update_alias = on_command("cf.update",priority=5, block=True)
 @update_alias.handle()
 async def updatalias (event: GroupMessageEvent):
