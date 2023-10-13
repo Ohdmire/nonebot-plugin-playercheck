@@ -6,9 +6,13 @@
                 background: #90c4e4;
             }
 
-            h1 {
-                color:rgb(0, 0, 0);
+
+            .heading{
+                color: #333333;
+                font-size: 30pt;
+                font-weight: bolder;
                 text-align:center;
+
             }
 
             .list {
@@ -17,12 +21,11 @@
 
             .card {
                 flex-direction: row;
+                overflow: hidden;
+
                 background-color: #ffbbbb;
 
-                margin-top: 50px;
-                margin-bottom: 50px;
-                margin-right: 50px;
-                margin-left: 50px;    
+                margin: 5% 12.5%;   
             
                 border: 0.25rem;
                 border-color: #ffe4c4;
@@ -31,48 +34,37 @@
                 border-radius: 1rem;
                 
                 padding: 0;
-
-                overflow: hidden;
             }
 
-            .gameinfo {
-                /* 缺省的背景图片 */
-                background-image: url(https://i.ppy.sh/c41c3b9ed0beeba20898a5ee7f97b6c1c2d37652/68747470733a2f2f7075752e73682f69625745532f336536646366373339372e706e67);
-                height: 10em;
-                margin: 0;
-            }
             .gamecover {
+                background: #ffbbbb;
+                background-repeat: no-repeat;
+                background-size: cover;
+
                 width: 100%;
-                height: 100%;
-                object-fit:cover;
-                filter: blur(2px);
-                
+                height: 12rem;
+                margin: 0;
             }
 
 
             .gamename {
-                position: absolute;
                 display: inline-block;
-                background-color: rgba(26, 131, 218, 0.7);
-                
+                background-color: rgba(26, 131, 218, .7);
+
                 color: #eeeeee;
                 font-size: 24pt;
                 font-weight: bold;
-                font-style: italic;
 
-                margin-top: 3vh;
-                margin-left: 2vw;
+                margin-top: 1.1rem;
+                margin-left: 2rem;
 
                 border: 0;
                 border-radius: 1rem;
 
                 padding: 0 1rem;
-
-                z-index: 1000;
-
             }
 
-            .sepline {
+            .line {
                 height: 0.1px;
                 background-color: #ffe4c4;
                 border-radius: 0;
@@ -110,34 +102,46 @@
 
     </head>
     <body>
-        <h1>
-            群音游玩家成分查询
-        </h1>
+        <div class="heading">群音游玩家成分查询</div>
+
             <div class="list">
                 <!-- i是一个游戏 -->
                 {% for i in allgamelists %}
                 <div class="card">
-                    <div class="gameinfo">
-                        <div class="gamename">{{ i }}</div>
-                        {% if gamename2urldict[i] %}
-                            <img class="gamecover" src="{{ gamename2urldict[i] }}" alt="gamecover">
+
+
+                    <div class="game">    
+                        <div class="gamecover">
+                            <img class="gamecover" src="{{ gamename2urldict[i] }}" alt="cover">
+                            {% if gamename2urldict[i] %}
+                            <div class="gamename">{{ i }}</div>
+                        </div>
                         {% endif %}
                     </div>
-                    <div class="sepline"></div>
+
+                        <div class="line"></div>
+
                     {% for k in jsondata %}
                         <!-- key是qq号码,value是游戏列表 -->
                         {% for key,value in k.items() %}
                             <!-- 如果i在游戏列表里面，则加入qq -->
                             {% if i in value %}
-                                <div class="playerinfo">
-                                    <img src="http://q1.qlogo.cn/g?b=qq&nk={{ key }}&s=640" alt="qqavatar">
-                                    <p class="playername">{{ user2cardname[key] }}</p>
-                                </div>
+                    <div class="player">
+                        <div class="playerinfo">
+                            <img src="http://q1.qlogo.cn/g?b=qq&nk={{ key }}&s=640" alt="qqavatar">
+                            <p class="playername">{{ user2cardname[key] }}</p>
+                        </div>
                             {% endif %}
                         {% endfor %}
                     {% endfor %}
+                    </div>
+
+
                 </div>
                 {% endfor %}
+            
+            
+            
             </div>
     </body>
 </html>
